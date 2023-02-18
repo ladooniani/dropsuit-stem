@@ -1,0 +1,33 @@
+{
+  "name": "dropsuit-stem",
+  "version": "1.0.4",
+  "description": "DropSuit NLP - stem function: A JavaScript and Node.js library for reducing words to their base or root form",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ladooniani/dropsuit-stem.git"
+  },
+  "keywords": [
+    "stemming",
+    "word stemming",
+    "text processing",
+    "language processing",
+    "natural language processing"
+  ],
+  "author": "Lado Oniani",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ladooniani/dropsuit-stem/issues"
+  },
+  "homepage": "https://github.com/ladooniani/dropsuit-stem#readme",
+  "dependencies": {
+    "dropsuit-clnstr": "^1.0.11",
+    "dropsuit-tok": "^1.0.9"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
+}

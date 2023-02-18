@@ -1,0 +1,230 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "requests": [
+        "Hello",
+        "Hi",
+        "Hey",
+        "Greetings!",
+        "How are you",
+        "Is anyone there?",
+        "Good day",
+        "Hello",
+        "Hello there!",
+        "Hey, how's it going?",
+        "Greetings, my friend!",
+        "How's your day been?",
+        "Is anyone available to chat?",
+        "Good morning!",
+        "Good afternoon!",
+        "Good evening!"
+      ],
+      "responses": [
+        "Hello!",
+        "Hi",
+        "Hey!",
+        "Greetings!",
+        "Hello, thanks for visiting",
+        "Hi there, what can I do for you?",
+        "Hi there, how can I help?",
+        "Hi there! How can I assist you?",
+        "Hello! How may I help you today?",
+        "Hey, what can I do for you?",
+        "Greetings! How can I make your day better?",
+        "Hello, welcome! How can I be of service?",
+        "Hi there! How can I assist you today?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "requests": [
+        "Bye",
+        "See you later",
+        "Goodbye",
+        "See you soon",
+        "Farewell",
+        "Until next time",
+        "Goodbye for now",
+        "I must be going"
+      ],
+      "responses": [
+        "See you later, thanks for visiting",
+        "Goodbye",
+        "Have a nice day",
+        "See you soon",
+        "Bye! Come back again soon.",
+        "It was great assisting you, have a great day!",
+        "Goodbye, have a nice day!",
+        "Until next time, take care!",
+        "It was a pleasure helping you, have a great day!",
+        "Farewell, hope to see you again soon!"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "requests": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "responses": [
+        "Happy to help!",
+        "Any time!",
+        "My pleasure",
+        "I'm glad I could assist you!",
+        "My pleasure, happy to help!",
+        "Anytime, happy to assist!"
+      ]
+    },
+    {
+      "tag": "items",
+      "requests": [
+        "What items do you have available?",
+        "Can you tell me about the products you offer?",
+        "What kinds of items do you sell?",
+        "I am looking for a specific book, do you have it in stock?",
+        "What are some of your best-selling items?"
+      ],
+      "responses": [
+        "We have a wide range of books and state-of-the-art sensor tablets available",
+        "We specialize in books, as well as cutting-edge sensor tablets."
+      ]
+    },
+    {
+      "tag": "payments",
+      "requests": [
+        "Do you take credit cards?",
+        "Do you accept Mastercard?",
+        "Can I pay with Paypal?",
+        "Are you cash only?",
+        "What payment methods do you accept?",
+        "Can I use my Mastercard?",
+        "Is Paypal accepted?",
+        "Do you accept cash payments?"
+      ],
+      "responses": [
+        "We accept VISA, Mastercard, and Paypal for your convenience.",
+        "We gladly accept most major credit cards and Paypal."
+      ]
+    },
+    {
+      "tag": "delivery",
+      "requests": [
+        "How long does delivery take?",
+        "How long does shipping take?",
+        "How long until I receive my order?",
+        "When can I expect my delivery?",
+        "What is the estimated shipping time?"
+      ],
+      "responses": [
+        "Delivery takes 3-5 days",
+        "Shipping takes 3-5 days",
+        "We estimate 3-5 business days for delivery.",
+        "Your order will be delivered within 3-5 business days."
+      ]
+    },
+    {
+      "tag": "entertainment",
+      "requests": [
+        "What are your hobbies?",
+        "Do you have any hobbies?",
+        "What do you like to do in your free time?",
+        "What are your interests?"
+      ],
+      "responses": [
+        "I enjoy reading, hiking, and playing music",
+        "I like reading, playing video games and sports",
+        "I enjoy playing sports, listening music, and travelling"
+      ]
+    },
+    {
+      "tag": "programming",
+      "requests": [
+        "What is the best language for beginner programmers?",
+        "What is the most recommended language for new programmers?",
+        "What is the best language for beginner programmers?",
+        "What is the most recommended language for new programmers?",
+        "What language should I start with as a beginner?",
+        "What is the easiest programming language for beginners?",
+        "What's the best programming language for starting to write programs?"
+      ],
+      "responses": [
+        "Best language for beginners: Python, Java, or JavaScript.",
+        "Python, Java, or JavaScript are good choices for beginner programmers.",
+        "Many people recommend Python as the best language for new programmers.",
+        "For a beginner, Python, Java, or JavaScript are great places to start.",
+        "Python is often considered the easiest programming language for beginners.",
+        "Advice for beginners: start with Python, Java, or JavaScript.",
+        "Python: simple, versatile, widely used."
+      ]
+    },
+    {
+      "tag": "health",
+      "requests": [
+        "What are some healthy eating habits?",
+        "What are some recommended healthy snacks for computer users?",
+        "What should I focus on for a healthy diet while working long hours at the computer?"
+      ],
+      "responses": [
+        "Healthy eating habits: balanced diet, avoid junk food, take breaks.",
+        "Healthy snacks: fruits, nuts, seeds, carrots, or celery.",
+        "Healthy diet while working long hours: balanced diet, take breaks."
+      ]
+    },
+    {
+      "tag": "child",
+      "requests": [
+        "What is the definition of a child?",
+        "How can I help a child develop emotionally and mentally?",
+        "What are the benefits of play for children?"
+      ],
+      "responses": [
+        "A child is a young human being below the age of majority.",
+        "Encourage creativity, provide stability, encourage exploration, read together.",
+        "Play promotes creativity, social skills, problem solving, and physical activity."
+      ]
+    },
+    {
+      "tag": "ai",
+      "requests": [
+        "What is the definition of Artificial Intelligence?",
+        "Can you explain what Artificial Intelligence is?",
+        "Artificial Intelligence, what does it mean?",
+        "What is the definition of Artificial Intelligence?",
+        "What does AI mean?",
+        "Can you explain AI in simple terms?"
+      ],
+      "responses": [
+        "Artificial Intelligence is tech that mimics human intelligence in tasks like perception, reasoning, learning, and decision-making.",
+        "Artificial Intelligence means technology that acts like human intelligence.",
+        "AI is a tech that behaves and thinks like humans, using algorithms and machine learning.",
+        "Artificial Intelligence simulates human intelligence in machines designed to act like humans.",
+        "Artificial Intelligence develops computer systems that can perform tasks requiring human intelligence, such as speech recognition and decision-making.",
+        "AI is computer science focused on creating machines with intelligent behavior."
+      ]
+    },
+    {
+      "tag": "robots",
+      "requests": [
+        "What is a robot?",
+        "What is the definition of a robot?",
+        "What are robots used for?"
+      ],
+      "responses": [
+        "A robot is a machine designed to carry out a complex series of actions automatically, especially by being programmed by a computer.",
+        "Robots are automated machines designed to perform specific tasks.",
+        "Robots are used for a variety of tasks including manufacturing, exploration, and scientific research."
+      ]
+    },
+    {
+      "tag": "computer",
+      "requests": [
+        "What is a computer?",
+        "What are the components of a computer?",
+        "How do computers work?"
+      ],
+      "responses": [
+        "A computer is an electronic device that processes data.",
+        "Components of a computer: CPU, RAM, storage, motherboard, power supply.",
+        "Computers work by processing data using the central processing unit and storing the processed data in memory."
+      ]
+    }
+  ]
+}
