@@ -204,9 +204,15 @@ function isSingleCharacter(value) {
 }
 
 function onBase(onbase, base) {
-  const baseArr = Object.values(onbase).flat();
-  const baseComb = [].concat(...baseArr, ...base);
-  let out = dstok.tok(baseComb, 1).tokArr();
+  let out;
+  if (onbase != null) {
+    const baseArr = Object.values(onbase).flat();
+    const baseComb = [].concat(...baseArr, ...base);
+    out = dstok.tok(baseComb, 1).tokArr();
+  }
+  if (onbase == null) {
+    out = dstok.tok(base, 1).tokArr();
+  }
   return out;
 }
 

@@ -35,11 +35,11 @@ let intentData = json_data.jsonIntStrct("assets/json/intents.json");
 
 ```
 
-Insert 'testArray' or 'intentData'. An object containing the requests and responses data from the intents.json file. This data will be used for stemming the words in the input sentence. Processes input sentence by stemming the words using only the data from json.
+To provide additional data for stemming, insert either an 'array' or 'intentData' object with all key values, or specify a specific key value such as 'intentData.req_arr' from the intents.json file. If no data is provided, the input will be self-stemmed.
 
-Use `filter` (0) Keep duplicate, (1) Remove duplicate.
+Use the filter parameter to keep or remove duplicates (0 or 1).
 
-Set boolean parameter (true/false) argument value to display console log processing results output information in terminal:
+Set the boolean parameter to true to display processing results in the terminal:
 
 ```
 let dsstem = new dropsuit_stem(intentData.req_arr, filter, false);
