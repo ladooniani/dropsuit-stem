@@ -57,8 +57,9 @@
 
 //#region  Constructor
 
-function Constructor(inputObj, dsout) {
-  this.inputObj = inputObj;
+function Constructor(onbase, filter, dsout) {
+  this.filter = filter;
+  this.onbase = onbase;
   this.dsout = dsout;
 }
 
@@ -74,12 +75,28 @@ function Constructor(inputObj, dsout) {
  * @param {(string|array)} [input=null] input - Input string/array.
  * @param {number} serchtype - Argument (0) seraches by 'program', (1) searches by 'progra-m'
  * @param {number} returntype - Argument (0) returns 'program', (1) returns 'progra-m'
+ * @param {boolean} singlechar -  Set to true to include single characters
+ * in the stemmed output preprocessing, or false to exclude them. This provides a processing option
+ * using JSON data as the base of words for the stemming algorithm.
  * @returns {array} - Stemmed array of words.
  */
 
-Constructor.prototype.stem = function (input, serchtype, returntype) {
-  input = objOrFncInp(input, this.inputObj);
-  let out = stem_f(input, serchtype, returntype, this.dsout);
+Constructor.prototype.stem = function (
+  input,
+  serchtype,
+  returntype,
+  singlechar
+) {
+  // input = objOrFncInp(input, this.input);
+  let out = stem_f(
+    input,
+    serchtype,
+    returntype,
+    singlechar,
+    this.onbase,
+    this.filter,
+    this.dsout
+  );
   return out;
 };
 
@@ -87,13 +104,14 @@ Constructor.prototype.stem = function (input, serchtype, returntype) {
 
 //#region stem_f
 
-const dropsuit_clnstr = require("./clnstr.js");
-var ds_clnstr = new dropsuit_clnstr(null);
+const dropsuit_clnstr = require("../dropsuit-clnstr/index.js");
+var ds_clnstr = new dropsuit_clnstr(null, false);
 
-const dropsuit_tok = require("./tok");
+const dropsuit_tok = require("../dropsuit-tok/index.js");
 let dstok = new dropsuit_tok(null, false);
 
 let arrPass = [];
+let cont;
 
 /**
  * Stemming.
@@ -101,32 +119,48 @@ let arrPass = [];
  * or using NULL returns default object instance key value (req_arr: requests).
  * @param {number} serchtype - (0) seraches by 'program', (1) searches by 'progra-m'
  * @param {number} returntype - (0) returns 'program', (1) returns 'progra-m'
+ * @param {boolean} singlechar -  Set to true to include single characters
+ * in the stemmed output preprocessing, or false to exclude them. This provides a processing option
+ * using JSON data as the base of words for the stemming algorithm.
+ * @param {number} onbase - An object containing the requests and responses data from the intents.json file.
+ * This data will be used for stemming the words in the input sentence.
+ * Processes input sentence by stemming the words using only the data from onbase.
+ * @param {number} filter - Return option parameter arguments (0) keep duplicate (1) remove duplicate.
  * @param {boolean} dispout - (true/false) Display processing output results in terminal.
  * @returns {array} - Stemmed array of words.
  * @example stem_f(array, number, number, boolean)
  */
 
-function stem_f(input, serchtype, returntype, dispout) {
+function stem_f(
+  input,
+  serchtype,
+  returntype,
+  singlechar,
+  onbase,
+  filter,
+  dispout
+) {
   arrPass = [];
   let groupArr = [];
   let arrTemp = [];
   serchtype = checkType(serchtype, 1);
   returntype = checkType(returntype, 1);
   let aos = arrStrChecker(input);
-  let inputout = defineInput(input, aos);
-  inputout = inputout.sort((a, b) => a.length - b.length);
-  for (let i = 0; i &lt; inputout.length; i++) {
+  let base = defineInput(input, filter, aos);
+  onbase = onBase(onbase, base);
+  onbase = onbase.sort((a, b) => a.length - b.length);
+  for (let i = 0; i &lt; onbase.length; i++) {
     arrTemp = [];
     let inp;
-    for (let o = 0; o &lt; inputout.length; o++) {
-      if (inputout[i].length > 1) {
+    for (let o = 0; o &lt; onbase.length; o++) {
+      if (onbase[i].length > 1) {
         if (serchtype == 0) {
-          inp = inputout[i];
+          inp = onbase[i];
         } else if (serchtype == 1) {
-          inp = inputout[i].slice(0, -1);
+          inp = onbase[i].slice(0, -1);
         }
         let inputWordChars = inp.split("");
-        let arrayWordChars = inputout[o].split("");
+        let arrayWordChars = onbase[o].split("");
         let count = 0;
         for (let s = 0; s &lt; inputWordChars.length; s++) {
           if (inputWordChars[s] == arrayWordChars[s]) {
@@ -134,8 +168,8 @@ function stem_f(input, serchtype, returntype, dispout) {
           }
         }
         if (count >= inputWordChars.length) {
-          if (!arrPass.includes(inputout[o])) {
-            arrTemp.push(inputout[o]);
+          if (!arrPass.includes(onbase[o])) {
+            arrTemp.push(onbase[o]);
           }
         }
       }
@@ -143,36 +177,84 @@ function stem_f(input, serchtype, returntype, dispout) {
     if (arrTemp.length !== 0) {
       arrPass = arrPass + arrTemp;
       if (returntype == 1) {
-        arrTemp.push(inputout[i].slice(0, -1));
+        arrTemp.push(onbase[i].slice(0, -1));
       }
       groupArr.push(arrTemp);
     }
   }
-  let out = getShortFromArr(groupArr);
-  display(groupArr, returntype, serchtype, out, input, aos, dispout);
+  let out = getShortFromArr(groupArr, singlechar);
+  let stemInput = [];
+  for (let i = 0; i &lt; base.length; i++) {
+    cont = 0;
+    for (let b = 0; b &lt; out.length; b++) {
+      const fc1 = base[i].charAt(0);
+      const fc2 = out[b].charAt(0);
+      if (fc1 == fc2) {
+        if (isSubstring(base[i], out[b])) {
+          let isSng = isSingleCharacter(out[b]);
+          if (cont == 0) {
+            if (isSng == true) {
+              stemInput.push(out[b]);
+              cont = 1;
+            } else {
+              stemInput.push(base[i]);
+              cont = 1;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  display(
+    groupArr,
+    base,
+    stemInput,
+    filter,
+    returntype,
+    serchtype,
+    singlechar,
+    out,
+    input,
+    aos,
+    dispout
+  );
+  return stemInput;
+}
+
+function isSingleCharacter(value) {
+  let length = value.length;
+  if (length &lt;= 2) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function onBase(onbase, base) {
+  const baseArr = Object.values(onbase).flat();
+  const baseComb = [].concat(...baseArr, ...base);
+  let out = dstok.tok(baseComb, 1).tokArr();
   return out;
 }
 
-function getShortFromArr(groupArr) {
-  let shortsArr = [];
-  for (let i = 0; i &lt; groupArr.length; i++) {
-    let out = groupArr[i].reduce((a, b) => (a.length &lt;= b.length ? a : b));
-    shortsArr.push(out);
+function isSubstring(str, substr) {
+  for (let i = 0; i &lt; str.length; i++) {
+    let match = true;
+    for (let j = 0; j &lt; substr.length; j++) {
+      if (str[i + j] !== substr[j]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) {
+      return true;
+    }
   }
-  return shortsArr;
+  return false;
 }
 
-function defineInput(input, aos) {
-  let out;
-  if (aos == "string") {
-    out = ds_clnstr.clnstr(input).txt();
-    var outArr = out.split(" ");
-    out = dstok.tok(outArr, 1).tokArr();
-  } else if (aos == "array") {
-    out = dstok.tok(input, 1).tokArr();
-  }
-  return out;
-}
+/*
 
 function objOrFncInp(function_input, constructor_input) {
   if (function_input !== "" &amp;&amp; function_input !== null) {
@@ -181,6 +263,33 @@ function objOrFncInp(function_input, constructor_input) {
     function_input = constructor_input;
   }
   return function_input;
+}
+
+*/
+
+function getShortFromArr(groupArr, singlechar) {
+  let shortsArr = [];
+  for (let i = 0; i &lt; groupArr.length; i++) {
+    let out = groupArr[i].reduce((a, b) => (a.length &lt;= b.length ? a : b));
+    shortsArr.push(out);
+  }
+  if (singlechar == false) {
+    shortsArr = shortsArr.filter((str) => str.length > 1);
+  }
+  shortsArr = dstok.tok(shortsArr, 1).tokArr();
+  return shortsArr;
+}
+
+function defineInput(input, filter, aos) {
+  let out;
+  if (aos == "string") {
+    out = ds_clnstr.clnstr(input).txt();
+    var outArr = out.split(" ");
+    out = dstok.tok(outArr, filter).tokArr();
+  } else if (aos == "array") {
+    out = dstok.tok(input, filter).tokArr();
+  }
+  return out;
 }
 
 function checkType(type, range) {
@@ -236,8 +345,20 @@ let fnctit = getdt.displayInfoData();
 const line = fnctit.line;
 var description = fnctit.descript;
 
-function display(groupArr, returntype, serchtype, out, input, aos, dispout) {
-  let tp1, tp2;
+function display(
+  groupArr,
+  base,
+  stemInput,
+  filter,
+  returntype,
+  serchtype,
+  singlechar,
+  out,
+  input,
+  aos,
+  dispout
+) {
+  let tp1, tp2, tp3, filtr;
   if (returntype == 0) {
     tp1 = "PROGRAM";
   } else if (returntype == 1) {
@@ -249,16 +370,40 @@ function display(groupArr, returntype, serchtype, out, input, aos, dispout) {
   } else if (serchtype == 1) {
     tp2 = "PROGRA-M";
   }
+
+  if (singlechar == false) {
+    tp3 = "- Exclude";
+  } else if (singlechar == true) {
+    tp3 = "- Include";
+  }
+
+  if (filter == 0) {
+    filtr =
+      "\n\nInput Array Size: (" +
+      base.length +
+      ") Condition: (" +
+      filter +
+      ") - Keep duplicate:\n\n";
+  } else if (filter == 1) {
+    filtr =
+      "\n\nInput Array Size: (" +
+      base.length +
+      ") Condition: (" +
+      filter +
+      ") - Remove duplicate:\n\n";
+  }
   if (dispout == true) {
     console.log(
-      description,
-      "\nInput type (",
+      description, /// "\nProcess:\n\n", groupArr, "\n\nStemming result ( Single Char:", singlechar, tp3, "):\n\n", out,
+      "\n\nInput type (",
       aos.toUpperCase(),
       "):\n\n",
       input,
-      "\n\nProcess:\n\n",
-      groupArr,
-      "\n\nSearch type condition: (",
+      "\n\nSingle Char: (",
+      singlechar,
+      ")",
+      tp3,
+      "\nSearch type condition: (",
       serchtype,
       ") -->",
       tp2,
@@ -266,8 +411,15 @@ function display(groupArr, returntype, serchtype, out, input, aos, dispout) {
       returntype,
       ") &lt;--",
       tp1,
-      "\n\nStemming output:\n\n",
-      out,
+      filtr,
+      base,
+      "\n\nStemming Array Size: (" +
+        stemInput.length +
+        ") condition (" +
+        serchtype +
+        returntype +
+        "):\n\n",
+      stemInput,
       "\n",
       line
     );
@@ -297,7 +449,7 @@ module.exports = Constructor;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Feb 14 2023 19:59:19 GMT+0400 (Georgia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Feb 21 2023 07:25:52 GMT+0400 (Georgia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

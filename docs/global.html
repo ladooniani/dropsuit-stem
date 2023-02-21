@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="stem"><span class="type-signature"></span>stem<span class="signature">(input<span class="signature-attributes">opt</span>, serchtype, returntype)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    <h4 class="name" id="stem"><span class="type-signature"></span>stem<span class="signature">(input<span class="signature-attributes">opt</span>, serchtype, returntype, singlechar)</span><span class="type-signature"> &rarr; {array}</span></h4>
     
 
     
@@ -261,6 +261,41 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>singlechar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Set to true to include single charactersin the stemmed output preprocessing, or false to exclude them. This provides a processing optionusing JSON data as the base of words for the stemming algorithm.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -298,7 +333,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line41">line 41</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -356,7 +391,7 @@
     
 
     
-    <h4 class="name" id="stem_f"><span class="type-signature"></span>stem_f<span class="signature">(input<span class="signature-attributes">opt</span>, serchtype, returntype, dispout)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    <h4 class="name" id="stem_f"><span class="type-signature"></span>stem_f<span class="signature">(input<span class="signature-attributes">opt</span>, serchtype, returntype, singlechar, onbase, filter, dispout)</span><span class="type-signature"> &rarr; {array}</span></h4>
     
 
     
@@ -516,6 +551,111 @@
 
         <tr>
             
+                <td class="name"><code>singlechar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Set to true to include single charactersin the stemmed output preprocessing, or false to exclude them. This provides a processing optionusing JSON data as the base of words for the stemming algorithm.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onbase</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">An object containing the requests and responses data from the intents.json file.This data will be used for stemming the words in the input sentence.Processes input sentence by stemming the words using only the data from onbase.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return option parameter arguments (0) keep duplicate (1) remove duplicate.</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>dispout</code></td>
             
 
@@ -585,7 +725,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line81">line 81</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line106">line 106</a>
     </li></ul></dd>
     
 
@@ -664,7 +804,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Feb 14 2023 19:59:19 GMT+0400 (Georgia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Feb 21 2023 07:25:52 GMT+0400 (Georgia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

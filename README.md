@@ -27,7 +27,7 @@ const dropsuit_stem = require("dropsuit-stem");
 
 ```
 
-Process  [intents.json](https://github.com/ladooniani/dropsuit-stem/blob/main/test/intents.json)  using 'jsonIntStrct' function:
+Process [intents.json](https://github.com/ladooniani/dropsuit-stem/blob/main/test/intents.json) using 'jsonIntStrct' function:
 
 ```
 const json_data = require("dropsuit-stem/jsobj.js");
@@ -35,71 +35,66 @@ let intentData = json_data.jsonIntStrct("assets/json/intents.json");
 
 ```
 
-insert 'testArray' or 'intentData' and set boolean parameter (true/false) argument value to display console log processing results output information in terminal:
+Insert 'testArray' or 'intentData'. An object containing the requests and responses data from the intents.json file. This data will be used for stemming the words in the input sentence. Processes input sentence by stemming the words using only the data from json.
+
+Use `filter` (0) Keep duplicate, (1) Remove duplicate.
+
+Set boolean parameter (true/false) argument value to display console log processing results output information in terminal:
 
 ```
-let dsstem = new dropsuit_stem(intentData.req_arr, false);
+let dsstem = new dropsuit_stem(intentData.req_arr, filter, false);
 
 ```
 
-#### stem(input, searchType, returnType)
+#### stem(input, searchType, returnType, singlechar)
 
-- **input**: Input 'myInputString/Array', or keep NULL to process default object instance key value (req_arr: requests).
+- **input**: Input 'myInputString/Array'.
 - **searchType**: Argument (0) searches by 'program', (1) searches by 'progra-m'
 - **returnType**: Argument (0) returns 'program', (1) returns 'progra-m'
+- **singlechar**: Boolean value (true or false) to specify whether to include or exclude single characters for preprocessing. This provides a processing option using JSON data as the base of words for the stemming algorithm.
 
 #### Output:
 
 - Stemmed array of words.
 
 ```
-let dsstem_output = dsstem.stem(null, 0, 0);
+let dsstem_output = dsstem.stem(myInputString, 0, 0, true);
 ```
 
 Result:
 
 ```
-Input type ( ARRAY ):
 
- [
-  'hello world of worlds how are you',
-  'programming',
-  'programmers',
-  'program',
-  'programs',
-  'programmer',
-  'programming',
-  'programmers',
-  'change',
-  'changing',
-  'changes',
-  'changed',
-  'changer',
-  'eating',
-  'eats',
-  'car',
-  'care',
-  'caring',
-  'eat',
-  'eater',
-  'eating',
-  'start',
-  'starting'
-]
+Input type ( STRING ):
 
+ hi, language for beginner programmers recommended languages for new programmers programming program?
+
+Single Char: ( true ) - Include
 Search type condition: ( 0 ) --> PROGRAM
 Return type condition: ( 0 ) <-- PROGRAM
 
-Stemming output:
+Input Array Size: (12) Condition: (0) - Keep duplicate:
 
  [
-  'of',      'how',
-  'are',     'you',
-  'car',     'eat',
-  'hello',   'world',
-  'start',   'change',
-  'program', 'changing'
+  'hi',          'language',
+  'for',         'beginner',
+  'programmers', 'recommended',
+  'languages',   'for',
+  'new',         'programmers',
+  'programming', 'program'
 ]
+
+Stemming Array Size: (12) condition (00):
+
+ [
+  'hi',       'language',
+  'for',      'beginner',
+  'program',  'recommend',
+  'language', 'for',
+  'new',      'program',
+  'program',  'program'
+]
+
 ```
 
 ## Links
