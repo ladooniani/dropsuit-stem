@@ -372,7 +372,7 @@ function display(
   }
   if (dispout == true) {
     console.log(
-      description, /// "\nProcess:\n\n", groupArr, "\n\nStemming result ( Single Char:", singlechar, tp3, "):\n\n", out,
+      description, 
       "\n\nInput type (",
       aos.toUpperCase(),
       "):\n\n",
