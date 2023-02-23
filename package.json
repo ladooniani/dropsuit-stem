@@ -1,6 +1,6 @@
 {
   "name": "dropsuit-stem",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "DropSuit NLP - stem function: A JavaScript and Node.js library for reducing words to their base or root form",
   "main": "index.js",
   "scripts": {
