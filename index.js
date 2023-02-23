@@ -102,6 +102,8 @@ let cont;
  * @example stem_f(array, number, number, boolean)
  */
 
+//#region Stemmet ver 1
+
 function stem_f(
   input,
   serchtype,
@@ -177,6 +179,10 @@ function stem_f(
     }
   }
 
+  if (stemInput.length === 0) {
+    stemInput = [input];
+  }
+
   display(
     base,
     stemInput,
@@ -186,10 +192,89 @@ function stem_f(
     singlechar,
     input,
     aos,
+    groupArr,
     dispout
   );
   return stemInput;
 }
+
+//#endregion
+
+//#region Stemmer ver 2
+
+/*
+
+function stem_f(input, serchtype, returntype, singlechar, onbase, filter, dispout) {
+  const arrPass = new Set();
+  const groupArr = [];
+  serchtype = checkType(serchtype, 1);
+  returntype = checkType(returntype, 1);
+  const aos = arrStrChecker(input);
+  const base = defineInput(input, filter, aos);
+  onbase = onBase(onbase, base);
+  onbase.sort((a, b) => a.length - b.length);
+  
+  for (let i = 0; i < onbase.length; i++) {
+    const arrTemp = [];
+    for (let o = 0; o < onbase.length; o++) {
+      if (onbase[i].length > 1) {
+        let inp = serchtype === 0 ? onbase[i] : onbase[i].slice(0, -1);
+        const inputWordChars = inp.split("");
+        const arrayWordChars = onbase[o].split("");
+        let count = 0;
+        
+        for (let s = 0; s < inputWordChars.length; s++) {
+          if (inputWordChars[s] === arrayWordChars[s]) {
+            count++;
+          }
+        }
+        
+        if (count >= inputWordChars.length) {
+          if (!arrPass.has(onbase[o])) {
+            arrTemp.push(onbase[o]);
+            arrPass.add(onbase[o]);
+          }
+        }
+      }
+    }
+    
+    if (arrTemp.length !== 0) {
+      if (returntype === 1) {
+        arrTemp.push(onbase[i].slice(0, -1));
+      }
+      groupArr.push(arrTemp);
+    }
+  }
+  
+  const out = getShortFromArr(groupArr, singlechar);
+  const stemInput = [];
+  
+  for (let i = 0; i < base.length; i++) {
+    let cont = 0;
+    
+    for (let b = 0; b < out.length; b++) {
+      const fc1 = base[i].charAt(0);
+      const fc2 = out[b].charAt(0);
+      
+      if (fc1 === fc2 && isSubstring(base[i], out[b])) {
+        let isSng = isSingleCharacter(out[b]);
+        
+        if (cont === 0) {
+          stemInput.push(isSng ? out[b] : base[i]);
+          cont = 1;
+        }
+      }
+    }
+  }
+  
+  display(base, stemInput, filter, returntype, serchtype, singlechar, input, aos, dispout);
+  
+  return stemInput;
+}
+
+*/
+
+//#endregion
 
 function isSingleCharacter(value) {
   let length = value.length;
@@ -316,6 +401,7 @@ function display(
   singlechar,
   input,
   aos,
+  groupArr,
   dispout
 ) {
   let tp1, tp2, tp3, filtr;
@@ -355,6 +441,8 @@ function display(
   if (dispout == true) {
     console.log(
       description,
+      "\nStemming:",
+      groupArr,
       "\n\nInput type (",
       aos.toUpperCase(),
       "):\n\n",
