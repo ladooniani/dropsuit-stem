@@ -97,6 +97,8 @@ Stemming Array Size: (12) condition (00):
 
 ```
 
+Refer to the [tests](https://github.com/ladooniani/dropsuit-bow/blob/main/test/index.test.js) for more information on how to use additional options for Stemming.
+
 ## Links
 
 - npm: https://www.npmjs.com/package/dropsuit-stem
