@@ -96,7 +96,6 @@ let cont;
  * using JSON data as the base of words for the stemming algorithm.
  * @param {(object|array)} onbase - An object containing the requests and responses data from the intents.json file.
  * This data will be used for stemming the words in the input sentence.
- * Processes input sentence by stemming the words using only the data from onbase.
  * @param {number} filter - Return option parameter arguments (0) keep duplicate (1) remove duplicate.
  * @param {boolean} dispout - (true/false) Display processing output results in terminal.
  * @returns {array} - Stemmed array of words.
