@@ -179,14 +179,12 @@ function stem_f(
   }
 
   display(
-    groupArr,
     base,
     stemInput,
     filter,
     returntype,
     serchtype,
     singlechar,
-    out,
     input,
     aos,
     dispout
@@ -231,19 +229,6 @@ function isSubstring(str, substr) {
   }
   return false;
 }
-
-/*
-
-function objOrFncInp(function_input, constructor_input) {
-  if (function_input !== "" && function_input !== null) {
-    function_input = function_input;
-  } else {
-    function_input = constructor_input;
-  }
-  return function_input;
-}
-
-*/
 
 function getShortFromArr(groupArr, singlechar) {
   let shortsArr = [];
@@ -324,14 +309,12 @@ const line = fnctit.line;
 var description = fnctit.descript;
 
 function display(
-  groupArr,
   base,
   stemInput,
   filter,
   returntype,
   serchtype,
   singlechar,
-  out,
   input,
   aos,
   dispout
@@ -372,7 +355,7 @@ function display(
   }
   if (dispout == true) {
     console.log(
-      description, 
+      description,
       "\n\nInput type (",
       aos.toUpperCase(),
       "):\n\n",
