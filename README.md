@@ -35,7 +35,7 @@ let intentData = json_data.jsonIntStrct("assets/json/intents.json");
 
 ```
 
-This stemmer function utilizes the input data to generate different stemming results based on the provided corpus and does not rely on any external database of words. To enhance the stemming process, you can add an 'array' or an 'intentData' object with all key values, or specify a particular key value such as 'intentData.req_arr' from the [intents.json](https://github.com/ladooniani/dropsuit-stem/blob/main/test/intents.json) file. If no additional data is provided, the function will still perform stemming by using the input's own consistency with respect to the words included in it.
+This stemmer function utilizes the input data to generate different stemming results based on the provided corpus and does not rely on any external database of words. To enhance the stemming process, you can add an 'array' or an 'intentData' object with all key values, or specify a particular key value such as 'intentData.req_arr' from the [intents.json](https://github.com/ladooniani/dropsuit-stem/blob/main/test/intents.json) file. If no additional data is provided, the function will still perform stemming by using the input's own consistency with respect to the words included in it. Refer to the [tests](https://github.com/ladooniani/dropsuit-bow/blob/main/test/index.test.js) for more information on how to use options for Stemming.
 
 Use the filter parameter to keep or remove duplicates (0 or 1).
 
@@ -96,8 +96,6 @@ Stemming Array Size: (12) condition (00):
 ]
 
 ```
-
-Refer to the [tests](https://github.com/ladooniani/dropsuit-bow/blob/main/test/index.test.js) for more information on how to use additional options for Stemming.
 
 ## Links
 
