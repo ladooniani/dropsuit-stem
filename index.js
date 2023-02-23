@@ -94,7 +94,7 @@ let cont;
  * @param {boolean} singlechar -  Set to true to include single characters
  * in the stemmed output preprocessing, or false to exclude them. This provides a processing option
  * using JSON data as the base of words for the stemming algorithm.
- * @param {number} onbase - An object containing the requests and responses data from the intents.json file.
+ * @param {(object|array)} onbase - An object containing the requests and responses data from the intents.json file.
  * This data will be used for stemming the words in the input sentence.
  * Processes input sentence by stemming the words using only the data from onbase.
  * @param {number} filter - Return option parameter arguments (0) keep duplicate (1) remove duplicate.
