@@ -13,17 +13,12 @@ function displayInfoData() {
     "\n-----------------------------------------------------------\n";
   const libraryInformation = line + liblink + libName;
   const functionDescription = `${libraryInformation}
-  stem(null/string-array, integer, integer, boolean)
+  stem(array/string)
   Input: 
-    string-array: Input 'myInputString/Array', 
-                  or keep NULL to process constructor (req_arr: requests).
-    integer: Argument (0) searches by 'program', (1) searches by 'progra-m'
-    integer: Argument (0) returns 'program', (1) returns 'progra-m'
-    boolean: Value (true or false) to specify whether to include or exclude 
-                  single characters for preprocessing.
+    array-string: Input array of string or string of words
 
   Output: 
-    Stemmed array of words.
+    Stemmed string/array of words.
   ${divider}`;
 
   const displayInfoData = {

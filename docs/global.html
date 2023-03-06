@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="stem"><span class="type-signature"></span>stem<span class="signature">(input<span class="signature-attributes">opt</span>, serchtype, returntype, singlechar)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    <h4 class="name" id="stem"><span class="type-signature"></span>stem<span class="signature">(input)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    - stem(null/string/array, 0, 0)function - Stemming words. Processes function direct string/arrayinput or using NULL returns default object instance key value (req_arr: requests).
+    Processes a string or array of strings, stemming each word in the input.
 </div>
 
 
@@ -136,11 +136,7 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -168,131 +164,10 @@
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
 
-            <td class="description last">input - Input string/array.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>serchtype</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Argument (0) seraches by 'program', (1) searches by 'progra-m'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>returntype</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Argument (0) returns 'program', (1) returns 'progra-m'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>singlechar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Set to true to include single charactersin the stemmed output preprocessing, or false to exclude them. This provides a processing optionusing JSON data as the base of words for the stemming algorithm.</td>
+            <td class="description last">The input string or array of strings to be stemmed.</td>
         </tr>
 
     
@@ -362,7 +237,7 @@
 
         
 <div class="param-desc">
-    - Stemmed array of words.
+    Processing options including the stemmed array of words.
 </div>
 
 
@@ -373,7 +248,7 @@
     </dt>
     <dd>
         
-<span class="param-type">array</span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -391,7 +266,7 @@
     
 
     
-    <h4 class="name" id="stem_f"><span class="type-signature"></span>stem_f<span class="signature">(input<span class="signature-attributes">opt</span>, serchtype, returntype, singlechar, onbase, filter, dispout)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    <h4 class="name" id="stem_f"><span class="type-signature"></span>stem_f<span class="signature">(input, type, base, dispout)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -399,7 +274,7 @@
 
 
 <div class="description">
-    Stemming.
+    Stemming function.
 </div>
 
 
@@ -423,11 +298,7 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -455,33 +326,17 @@
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                    null
-                
-                </td>
-            
 
-            <td class="description last">input - Input string/arrayor using NULL returns default object instance key value (req_arr: requests).</td>
+            <td class="description last">The input string or array of strings to be stemmed.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>serchtype</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
@@ -494,64 +349,17 @@
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                </td>
-            
 
-            <td class="description last">(0) seraches by 'program', (1) searches by 'progra-m'</td>
+            <td class="description last">Specifies whether to differentiate short roots or not.     - 0: Differentiate short roots (e.g., "Cars" becomes "Car" and "Caring" becomes "Caring").     - 1: Do not differentiate short roots (e.g., "Cars" and "Caring" both become "Car").</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>returntype</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">(0) returns 'program', (1) returns 'progra-m'</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>singlechar</code></td>
+                <td class="name"><code>base</code></td>
             
 
             <td class="type">
@@ -564,95 +372,10 @@
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                </td>
-            
 
-            <td class="description last">Set to true to include single charactersin the stemmed output preprocessing, or false to exclude them. This provides a processing optionusing JSON data as the base of words for the stemming algorithm.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>onbase</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-|
-
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">An object containing the requests and responses data from the intents.json file.This data will be used for stemming the words in the input sentence.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>filter</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Return option parameter arguments (0) keep duplicate (1) remove duplicate.</td>
+            <td class="description last">Specifies whether to process an input array of strings with load from the input array     and save the data file or to process an input string with load from the data file and not save the data file.     - true: Process input array of strings with load from the input array and save the data file.     - false: Process input string with load from the data file and don't save the data file.</td>
         </tr>
 
     
@@ -672,22 +395,10 @@
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                </td>
-            
 
-            <td class="description last">(true/false) Display processing output results in terminal.</td>
+            <td class="description last">Specifies whether to display processing output results in terminal.     - true: Display processing output results in terminal.     - false: Do not display processing output results in terminal.</td>
         </tr>
 
     
@@ -728,7 +439,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line105">line 105</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line86">line 86</a>
     </li></ul></dd>
     
 
@@ -757,7 +468,7 @@
 
         
 <div class="param-desc">
-    - Stemmed array of words.
+    An object containing the input and output data, as well as the options used for processing.
 </div>
 
 
@@ -768,7 +479,7 @@
     </dt>
     <dd>
         
-<span class="param-type">array</span>
+<span class="param-type">object</span>
 
 
     </dd>
@@ -781,7 +492,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>stem_f(array, number, number, boolean)</code></pre>
+    <pre class="prettyprint"><code>stem_f(array|string, number, boolean, boolean)</code></pre>
 
 
 
@@ -807,7 +518,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Thu Feb 23 2023 21:47:54 GMT+0400 (Georgia Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Mar 06 2023 04:15:41 GMT+0400 (Georgia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -27,74 +27,157 @@ const dropsuit_stem = require("dropsuit-stem");
 
 ```
 
-Process [intents.json](https://github.com/ladooniani/dropsuit-stem/blob/main/test/intents.json) using 'jsonIntStrct' function:
+This Stemmer function uses a context-dependent approach to reduce similar words in a sentence or corpus of documents. Instead of relying on suffix stripping to produce a complete morphological root, it extracts possible roots based on similar words in the provided input.
+
+Refer to the [tests](https://github.com/ladooniani/dropsuit-stem/blob/main/test/index.test.js) for more information on how to use options for Stemming.
+
+Use the following constructor to create an instance of the Stem class:
 
 ```
-const json_data = require("dropsuit-stem/jsobj.js");
-let intentData = json_data.jsonIntStrct("assets/json/intents.json");
-
-```
-
-This stemmer function utilizes the input data to generate different stemming results based on the provided corpus and does not rely on any external database of words. To enhance the stemming process, you can add an 'array' or an 'intentData' object with all key values, or specify a particular key value such as 'intentData.req_arr' from the [intents.json](https://github.com/ladooniani/dropsuit-stem/blob/main/test/intents.json) file. If no additional data is provided, the function will still perform stemming by using the input's own consistency with respect to the words included in it. Refer to the [tests](https://github.com/ladooniani/dropsuit-stem/blob/main/test/index.test.js) for more information on how to use options for Stemming.
-
-Use the filter parameter to keep or remove duplicates (0 or 1).
-
-Set the boolean parameter to true to display processing results in the terminal:
-
-```
-let dsstem = new dropsuit_stem(intentData.req_arr, filter, false);
+let dsstem = new dropsuit_stem(processingType, loadData, displayResults);
 
 ```
 
-#### stem(input, searchType, returnType, singlechar)
+- Set 'processingType' (0) to differentiate short roots like 'Cars=Car' and 'Caring=Caring' and (1) to do not differentiate 'Cars=Car' snd 'Caring=Car'.
 
-- **input**: Input 'myInputString/Array'.
-- **searchType**: Argument (0) searches by 'program', (1) searches by 'progra-m'
-- **returnType**: Argument (0) returns 'program', (1) returns 'progra-m'
-- **singlechar**: Boolean value (true or false) to specify whether to include or exclude single characters for preprocessing. This provides a processing option using JSON data as the base of words for the stemming algorithm.
+- Set (true) to for second argument to process input array of strings with load from the input array and save the data file or (false) to process input string with load from the data file and do not save the data file.
 
-#### Output:
-
-- Stemmed array of words.
+- Set the boolean parameter to true to display processing results in the terminal:
 
 ```
-let dsstem_output = dsstem.stem(myInputString, 0, 0, true);
+let dsstem = new dropsuit_stem(0, true, true);
+
+```
+
+#### stem(input)
+
+- **input**: Input 'String/Array'.
+
+#### Output options:
+
+- **stem()** Stemmed data array.
+- **root()** Roots and pseudo roots.
+- **short()** Short roots.
+- **score()** Root equality score.
+- **ends()** Suffix and pseudo suffix endings.
+- **unroot()** Unrootable words.
+
+To process an array of sentences, pass an array of strings to the stem function:
+
+```
+let output = dsstem.stem(sentencesArrayInput);
 ```
 
 Result:
 
 ```
 
-Input type ( STRING ):
+Input:
 
- hi, language for beginner programmers recommended languages for new programmers programming program?
-
-Single Char: ( true ) - Include
-Search type condition: ( 0 ) --> PROGRAM
-Return type condition: ( 0 ) <-- PROGRAM
-
-Input Array Size: (12) Condition: (0) - Keep duplicate:
-
- [
-  'hi',          'language',
-  'for',         'beginner',
-  'programmers', 'recommended',
-  'languages',   'for',
-  'new',         'programmers',
-  'programming', 'program'
+[
+  "tech",
+  "As programmers program programs programmatically with programming languages, using a language stem and stemming techniques to use the stemmed data technically.",
+  "Programmers love to program rubber ducks into their programs as a debugging tool, but when it comes to programming chess-playing programs, they need to be blue to win and be winner.",
+  "The linguistics professor and other professors professorial study and professional profesion would be teaching his students about the process and processor of stemming showing the how to reduce words to roots like",
+  "begin begins beginning and change changing changings eat eats eater eating where accept accepted but not accepts unacceptable where regular regularly  must be different with irregural",
+  "as well as car cars with care cares or caring and storing stored store and save saver but still saving to the common root",
 ]
 
-Stemming Array Size: (12) condition (00):
+Output:
 
- [
-  'hi',       'language',
-  'for',      'beginner',
-  'program',  'recommend',
-  'language', 'for',
-  'new',      'program',
-  'program',  'program'
-]
+{
+  unrootable: [
+    'using',       'use',
+    'love',        'ducks',
+    'debugging',   'when',
+    'comes',       'chess',
+    'need',        'blue',
+    'linguistics', 'study',
+    'would',       'his',
+    'students',    'reduce',
+    'like',        'not',
+    'must',        'different',
+    'well',        'still',
+    'common'
+  ],
+  suffix_end: [
+    'ng',  'ing', 'es',  'ly',
+    'lly', 'rs',  'ers', 'am',
+    'ram', 'ms',  'ams', 'er',
+    'al',  'ut',  'ss',  'ess',
+    'sor', 'ts',  'in',  'ge',
+    'ed',  're',  'ere', 'll',
+    'on'
+  ],
+  root_score: {
+    'tech-techniques=TECH': 4,
+    'programmers-program=PROGRAM': 7,
+    'programmatically-programmers=PROGRAMM': 8,
+    'languages-language=LANGUAGE': 8,
+    'stem-stemming=STEM': 4,
+    'professor-professors=PROFESSOR': 9,
+    'study-students=STUD': 4,
+    'professional-professor=PROFESS': 7,
+    'profesion-professor=PROFES': 6,
+    'process-processor=PROCESS': 7,
+    'roots-root=ROOT': 4,
+    'begin-begins=BEGIN': 5,
+    'change-changing=CHANG': 5,
+    'accept-accepted=ACCEPT': 6,
+    'regular-regularly=REGULAR': 7,
+    'care-cares=CARE': 4,
+    'storing-stored=STOR': 4,
+    'save-saver=SAVE': 4
+  },
+  short_root: [ 'win', 'eat', 'car' ],
+  roots: [
+    'tech',     'program',
+    'programm', 'language',
+    'stem',     'professor',
+    'stud',     'profess',
+    'profes',   'process',
+    'root',     'begin',
+    'chang',    'accept',
+    'regular',  'care',
+    'stor',     'save'
+  ],
+  stemming: [
+    'tech',
+    'as program program program program with program language using a language stem and stem tech to use the stem data tech',
+    'program love to program rubber ducks into their program as a debugging tool but when it comes to program chess playing program they need to be blue to win and be win',
+    'the linguistics professor and other profes profes stud and profes profes would be teaching his stud about the process and process of stem showing the how to reduce words to root like',
+    'begin begin begin and chang chang chang eat eat eater eating where accept accept but not accept unacceptable where regular regular must be different with irregural',
+    'as well as car car with care care or caring and stor stor stor and save save but still saving to the common root'
+  ],
+  unroot: [Function: unroot],
+  ends: [Function: ends],
+  score: [Function: score],
+  short: [Function: short],
+  root: [Function: root],
+  stem: [Function: stem]
+}
 
+
+```
+
+To use stemming data as a base for single input after processing the array, change 'loadData' from 'true' to 'false':
+
+```
+let dsstem = new dropsuit_stem(0, false, true);
+
+```
+
+Then, pass the input word or sentence string:
+
+```
+let output = dsstem.stem("programming");
+
+```
+
+Output:
+
+```
+ [ 'program' ],
 ```
 
 ## Links
