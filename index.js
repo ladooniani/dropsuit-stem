@@ -191,11 +191,6 @@ function stemObject(
 
 //#region Prefix Equality Score Count
 
-/*
- * ["technically", "techniques", "technically"] and ["tech", "techno"]
- * Result:  ["techni", "tech"]
- */
-
 function rootEqualityScore(wordsArray) {
   wordsArray = dstok.tok(wordsArray, 0).tokArr();
   let rootEqualScore = [];
@@ -218,7 +213,6 @@ function rootEqualityScore(wordsArray) {
               if (B == A) {
                 count++;
               } else {
-                /// c~00 Brake count to avoid case: 'pro(f)ess-or' and 'pro(c)ess' otherwise will be equal to 6
                 break;
               }
             }
@@ -230,10 +224,6 @@ function rootEqualityScore(wordsArray) {
       }
     }
   }
-
-  //let output = selectAndCutByScores(prefixEqualScore, wordsArray);
-  //console.log("c~00 Output: (Prefix Equality Score:", output, ") 00^");
-  // output = replaceToAvailableRoot(output, passArray);
   return rootEqualScore;
 }
 
@@ -271,7 +261,6 @@ function selectAndCutByScores(collector, wordsArray) {
       if (actualWord === tagWord && equalSz > 3) {
         if (equalSz > scoreSize) {
           if (!temp.includes(tagWord)) {
-            // && !temp.includes(getWord)) {
             temp.push(getWord);
             temp.push(tagWord);
             scoreSize = equalSz;
@@ -328,7 +317,6 @@ function replaceToAvailableRoot(
               }
               if (!containsRoot) {
                 if (type == 0) {
-                  // cars=car | caring=caring
                   for (let e = 0; e < suffixendings.length; e++) {
                     const combination = root.trim() + suffixendings[e].trim();
                     const matchStr = match[0].trim();
@@ -340,7 +328,6 @@ function replaceToAvailableRoot(
                     }
                   }
                 } else if (type == 1) {
-                  // cars=car | caring=car
                   words[j] = word.replace(match[0], root);
                 }
               }
@@ -363,7 +350,7 @@ function replaceToAvailableRoot(
 function extractShortRoot(CorpusArray, ExistRoots) {
   let skipWord = setAvoidWords();
   CorpusArray = dstok.tok(CorpusArray, 1).tokArr();
-  let extractRoots = []; // let non_extract = []
+  let extractRoots = [];
   for (let i = 0; i < CorpusArray.length; i++) {
     for (let j = 0; j < CorpusArray.length; j++) {
       if (i !== j && CorpusArray[j].includes(CorpusArray[i])) {
@@ -375,13 +362,13 @@ function extractShortRoot(CorpusArray, ExistRoots) {
           ) {
             extractRoots.push(CorpusArray[i]);
           }
-        } // else { non_extract.push(CorpusArray[i]); }
+        }
         break;
       }
     }
   }
-  // let output = replaceToAvailableRoot(extractRoots, passArray);
-  return extractRoots; // return [extract, non_extract];
+
+  return extractRoots;
 }
 
 function setAvoidWords() {
@@ -395,7 +382,7 @@ function setAvoidWords() {
 
 function extractNonRootable(corpus) {
   corpus = dstok.tok(corpus, 0).tokArr();
-  const roots = []; // const non_roots = [];
+  const roots = [];
   for (let i = 0; i < corpus.length; i++) {
     let isRoot = true;
     for (let j = 0; j < corpus.length; j++) {
@@ -409,9 +396,9 @@ function extractNonRootable(corpus) {
     }
     if (isRoot) {
       roots.push(corpus[i]);
-    } // else { non_roots.push(corpus[i]); }
+    }
   }
-  return roots; // return [roots, non_roots];
+  return roots;
 }
 
 //#endregion
@@ -461,7 +448,6 @@ const path = require("path");
 
 function loadData(base) {
   if (base == false) {
-    // false = load from the file and dont save the file
     const filePath = path.join(__dirname, "data", "data.json");
     if (fs.existsSync(filePath)) {
       try {
@@ -498,16 +484,12 @@ function saveData(base, rootsarr, shortrootsarr, endingsarr) {
       roots = rootsarr;
       short_roots = shortrootsarr;
       endings = endingsarr;
-      // Create directory to store the file if it doesn't exist
       const dirPath = path.join(__dirname, "data");
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
       }
-
-      // Check if data.json file exists
       const filePath = path.join(dirPath, "data.json");
       if (!fs.existsSync(filePath)) {
-        // Create and save data.json file with keys and values for each list
         const data = {
           roots: roots,
           short_roots: short_roots,
@@ -516,7 +498,6 @@ function saveData(base, rootsarr, shortrootsarr, endingsarr) {
         const jsonData = JSON.stringify(data);
         fs.writeFileSync(filePath, jsonData, "utf-8");
       } else {
-        // Overwrite data.json file with new inputs
         const data = {
           roots: roots,
           short_roots: short_roots,
