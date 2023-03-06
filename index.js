@@ -85,68 +85,73 @@ let dstok = new dropsuit_tok(null, false);
 
 function stem_f(input, type, base, dispout) {
   let result = loadData(base);
-  input = defineInput(input, base);
-  let rootEqualityScoreOutput = rootEqualityScore(input);
-  let selectAndCutByScoresOutput = selectAndCutByScores(
-    rootEqualityScoreOutput, /// Score Count
-    input
-  );
-  let selectAndCutByScoresOutput_p;
-  if (base == false) {
-    selectAndCutByScoresOutput_p = result[0]; /// Load Roots
+
+  if (base == false && result == false) {
+    console.warn("Warn: data.json file does not exist.");
   } else {
-    selectAndCutByScoresOutput_p = selectAndCutByScoresOutput[0];
+    input = defineInput(input, base);
+    let rootEqualityScoreOutput = rootEqualityScore(input);
+    let selectAndCutByScoresOutput = selectAndCutByScores(
+      rootEqualityScoreOutput, /// Score Count
+      input
+    );
+    let selectAndCutByScoresOutput_p;
+    if (base == false) {
+      selectAndCutByScoresOutput_p = result[0]; /// Load Roots
+    } else {
+      selectAndCutByScoresOutput_p = selectAndCutByScoresOutput[0];
+    }
+
+    let extractShortRootOutput = extractShortRoot(
+      input,
+      selectAndCutByScoresOutput_p
+    ); /// Short Roots
+
+    if (base == false) {
+      extractShortRootOutput = result[1]; /// Load Short Roots
+    }
+    let extractSuffixEndingsOutput;
+    if (base == true) {
+      extractSuffixEndingsOutput = extractSuffixEndings(input);
+    }
+    if (base == false) {
+      extractSuffixEndingsOutput = result[2]; /// Load Endings
+    }
+
+    let extractNonRootableOutput = extractNonRootable(input); /// Non Rootables
+    let replaceToAvailableRootOutput = replaceToAvailableRoot(
+      type, /// Type of processing
+      selectAndCutByScoresOutput_p, /// Roots
+      extractShortRootOutput, /// Shot Roots
+      extractSuffixEndingsOutput, /// Suffix endings
+      input
+    );
+
+    saveData(
+      base,
+      selectAndCutByScoresOutput_p,
+      extractShortRootOutput,
+      extractSuffixEndingsOutput
+    );
+
+    let output = stemObject(
+      extractNonRootableOutput, ///  Non Rootables
+      extractSuffixEndingsOutput, /// Suffix endings
+      extractShortRootOutput, ///  Short Roots
+      selectAndCutByScoresOutput[1], /// Score
+      selectAndCutByScoresOutput_p, /// Roots
+      replaceToAvailableRootOutput, /// Stemming
+      type, /// Type of processing
+      dispout
+    );
+
+    display(
+      output,
+      type, /// Type of processing
+      dispout
+    );
+    return output;
   }
-
-  let extractShortRootOutput = extractShortRoot(
-    input,
-    selectAndCutByScoresOutput_p
-  ); /// Short Roots
-
-  if (base == false) {
-    extractShortRootOutput = result[1]; /// Load Short Roots
-  }
-  let extractSuffixEndingsOutput;
-  if (base == true) {
-    extractSuffixEndingsOutput = extractSuffixEndings(input);
-  }
-  if (base == false) {
-    extractSuffixEndingsOutput = result[2]; /// Load Endings
-  }
-
-  let extractNonRootableOutput = extractNonRootable(input); /// Non Rootables
-  let replaceToAvailableRootOutput = replaceToAvailableRoot(
-    type, /// Type of processing
-    selectAndCutByScoresOutput_p, /// Roots
-    extractShortRootOutput, /// Shot Roots
-    extractSuffixEndingsOutput, /// Suffix endings
-    input
-  );
-
-  saveData(
-    base,
-    selectAndCutByScoresOutput_p,
-    extractShortRootOutput,
-    extractSuffixEndingsOutput
-  );
-
-  let output = stemObject(
-    extractNonRootableOutput, ///  Non Rootables
-    extractSuffixEndingsOutput, /// Suffix endings
-    extractShortRootOutput, ///  Short Roots
-    selectAndCutByScoresOutput[1], /// Score
-    selectAndCutByScoresOutput_p, /// Roots
-    replaceToAvailableRootOutput, /// Stemming
-    type, /// Type of processing
-    dispout
-  );
-
-  display(
-    output,
-    type, /// Type of processing
-    dispout
-  );
-  return output;
 }
 
 function stemObject(
@@ -457,13 +462,13 @@ function loadData(base) {
         short_roots = data.short_roots;
         endings = data.endings;
         let load = [roots, short_roots, endings];
-        console.log(load);
         return load;
       } catch (err) {
         console.error("Error reading data.json file:", err);
       }
     } else {
       console.warn("Warn: data.json file does not exist.");
+      return false;
     }
   } else {
     return false;
