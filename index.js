@@ -85,7 +85,6 @@ let dstok = new dropsuit_tok(null, false);
 
 function stem_f(input, type, base, dispout) {
   let result = loadData(base);
-
   if (base == false && result == false) {
     console.warn("Warn: data.json file does not exist.");
   } else {
@@ -101,12 +100,10 @@ function stem_f(input, type, base, dispout) {
     } else {
       selectAndCutByScoresOutput_p = selectAndCutByScoresOutput[0];
     }
-
     let extractShortRootOutput = extractShortRoot(
       input,
       selectAndCutByScoresOutput_p
     ); /// Short Roots
-
     if (base == false) {
       extractShortRootOutput = result[1]; /// Load Short Roots
     }
