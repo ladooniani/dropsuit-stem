@@ -177,7 +177,7 @@ Output:
 ```
  [ 'program' ],
 ```
-<!-->
+<!--
 ## Links
 
 - npm: https://www.npmjs.com/package/dropsuit-stem
