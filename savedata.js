@@ -24,6 +24,7 @@ function loadData(base) {
     return false;
   }
 }
+
 function saveData(base, rootsarr, shortrootsarr, endingsarr) {
   if (base == true) {
     let roots, short_roots, endings;
