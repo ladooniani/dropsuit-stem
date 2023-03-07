@@ -2,13 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/dropsuit-stem.svg?style=flat)](https://www.npmjs.com/package/dropsuit-stem) [![npm](https://img.shields.io/npm/dt/dropsuit-stem.svg?style=flat-square)](https://www.npmjs.com/package/dropsuit-stem) [![License](https://img.shields.io/npm/l/dropsuit-stem.svg)](https://www.npmjs.com/package/dropsuit-stem)
 
-# Overview of [DropSuit](https://github.com/ladooniani/dropsuit#readme) NLP and the stem Function
+# Overview of [DropSuit](https://github.com/ladooniani/dropsuit#readme) NLP's stem function for word stemming
 
-[DropSuit](https://github.com/ladooniani/dropsuit#readme) NLP is an open-source JavaScript and Node.js library offering diverse functions for natural language processing and data manipulation. The stem function is one of its modules, designed for reducing words to their base or root form. It is available under the Apache License 2.0.
-
-## DropSuit NLP Method: A JavaScript and Node.js function for word stemming
-
-The stem function is a part of the DropSuit NLP library, it's a JavaScript and Node.js function that reduces words to their base or root form. It's open-source and available under the Apache License 2.0.
+[DropSuit](https://github.com/ladooniani/dropsuit#readme)  NLP is an open-source JavaScript and Node.js library that provides a variety of functions for natural language processing and data manipulation. One of these functions is the stem function, which is designed to reduce words to their base or root form. As part of the DropSuit NLP library, the stem function is available under the Apache License 2.0.
 
 ### Installation
 
