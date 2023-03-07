@@ -177,11 +177,11 @@ Output:
 ```
  [ 'program' ],
 ```
- 
+<!-->
 ## Links
 
 - npm: https://www.npmjs.com/package/dropsuit-stem
- 
+-->
 ## Supporting DropSuit
 
 DropSuit is an open-source library and I am dedicated to ensuring its continued development and improvement. If you have any questions, feedback, or encounter any issues, please reach out through the [support via PayPal](https://www.paypal.com/paypalme/dropsuit?country.x=GE&locale.x=en_US), and read more about [support details](https://github.com/ladooniani/dropsuit/blob/main/Support.md).
